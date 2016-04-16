@@ -17,10 +17,9 @@ public class ClientHandler extends Thread {
     PrintWriter writer;
     public static int clientsCount = 0;
     ServerSocket server;
-    System.out.println("Port 8189 Listening. Waiting for Connection");
 
-    public ClientHandler(Socket socket){
-        this.socket = socket;
+    public ClientHandler(ServerSocket serverSocket){
+        this.server = serverSocket;
     }
 
     public void run(){
@@ -29,11 +28,10 @@ public class ClientHandler extends Thread {
             writer = new PrintWriter(socket.getOutputStream());
             writer.println("Hello, user");
             String str ="";
-            while(str.equals("end"){
-                if(reader.e){
+            while(str.equals("end")){
+                if(!reader.equals(null)){
                     str = reader.readLine();
                     System.out.println(str);
-                    writer.println("Echo: "+str);
                 }
             }
             socket.close();
