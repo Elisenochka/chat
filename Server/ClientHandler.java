@@ -20,15 +20,22 @@ public class ClientHandler extends Thread {
 
     public ClientHandler(ServerSocket serverSocket){
         this.server = serverSocket;
+        try{
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new PrintWriter(socket.getOutputStream());
+            socket = server.accept();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void run(){
         try{
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            writer = new PrintWriter(socket.getOutputStream());
+            //reader = new BufferedReader(new InputStreamReader(server.getInputStream()));
+            //writer = new PrintWriter(server.getOutputStream());
             writer.println("Hello, user");
             String str ="";
-            while(str.equals("end")){
+            while(!str.equals("end")){
                 if(!reader.equals(null)){
                     str = reader.readLine();
                     System.out.println(str);
