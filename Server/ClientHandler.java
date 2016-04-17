@@ -21,9 +21,10 @@ public class ClientHandler extends Thread {
     public ClientHandler(ServerSocket serverSocket){
         this.server = serverSocket;
         try{
+            socket = server.accept();
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream());
-            socket = server.accept();
+
         }catch(IOException e){
             e.printStackTrace();
         }
